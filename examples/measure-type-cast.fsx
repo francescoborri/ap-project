@@ -8,11 +8,11 @@
 // Incorrect, the measure of FloatWithMeasure is not constrained to be equal to 'u
 // and this can be exploited to break soundness
 // Inferred type: int<'u> -> float<'v> 
-let badIntToFloat x = x + 0<_> |> float |> LanguagePrimitives.FloatWithMeasure
+let badIntToFloat (x: int<'u>) = x |> float |> LanguagePrimitives.FloatWithMeasure
 
 // Correct, the measure of FloatWithMeasure is constrained to be equal to 'u
 // Inferred type: int<'u> -> float<'u>
-let intToFloat x = x + 0<_> |> float |> LanguagePrimitives.FloatWithMeasure<'u>
+let intToFloat (x: int<'u>) = x |> float |> LanguagePrimitives.FloatWithMeasure<'u>
 
 // The compiler incorrectly accepts this code, which break soundness
 let a: float<s> = badIntToFloat 5<m> 
